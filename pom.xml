@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>spring-hibernate-reactive-mutiny-example</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <properties>
         <java.version>17</java.version>
@@ -58,9 +58,9 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.htech</groupId>
-            <artifactId>hibernate-reactive-spring-boot-starter</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <groupId>io.github.anaconda875</groupId>
+            <artifactId>reactive-hibernate-spring-boot-starter</artifactId>
+            <version>1.0.0</version>
         </dependency>
 
         <dependency>
