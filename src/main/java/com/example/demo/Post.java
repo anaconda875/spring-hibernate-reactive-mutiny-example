@@ -7,8 +7,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Data
 @NoArgsConstructor
@@ -29,8 +32,20 @@ public class Post {
   String title;
   String content;
 
-  @Builder.Default
   @Column(name = "created_at")
-  @CreationTimestamp
-  LocalDateTime createdAt = LocalDateTime.now();
+  //  @CreationTimestamp
+  @CreatedDate
+  LocalDateTime createdAt;
+
+  @Column(name = "last_modified_at")
+  @LastModifiedDate
+  LocalDateTime lastModifiedAt;
+
+  @Column(name = "created_by")
+  @CreatedBy
+  String createdBy;
+
+  @Column(name = "last_modified_by")
+  @LastModifiedBy
+  String lastModifiedBy;
 }

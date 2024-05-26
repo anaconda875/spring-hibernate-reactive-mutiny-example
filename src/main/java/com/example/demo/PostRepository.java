@@ -25,17 +25,16 @@ public interface PostRepository extends ReactiveJpaRepository<Post, UUID> {
   @Query("SELECT p FROM Post p WHERE p.content = :content ORDER BY p.id")
   Mono<Post> custom2(@Param("content") String content);
 
-  @Query("SELECT p FROM Post p WHERE p.content = :content ORDER BY p.id")
-  Mono<Post> custom3(@Param("content") String content);
-
   @Query(
       nativeQuery = true,
-      value = "SELECT id, title, content, created_at FROM posts WHERE id = ?1")
+      value =
+          "SELECT id, title, content, created_at, created_by, last_modified_at, last_modified_by FROM posts WHERE id = ?1")
   Mono<Post> nativeQ(UUID id);
 
   @Query(
       nativeQuery = true,
-      value = "SELECT id, title, content, created_at FROM posts WHERE content = :content")
+      value =
+          "SELECT id, title, content, created_at, created_by, last_modified_at, last_modified_by FROM posts WHERE content = :content")
   Flux<Post> nativeQ2(@Param("content") String content);
 
   //  Mono<Boolean> existsById(UUID id);

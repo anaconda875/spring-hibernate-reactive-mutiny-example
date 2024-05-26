@@ -11,9 +11,8 @@ import java.util.UUID;
 import java.util.logging.Logger;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.reactive.mutiny.Mutiny;
-import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 @RequiredArgsConstructor
 public class PostRepository1 {
   private static final Logger LOGGER = Logger.getLogger(PostRepository1.class.getName());
@@ -104,6 +103,13 @@ public class PostRepository1 {
     // perform update
     return this.sessionFactory.withTransaction(
         (session, tx) -> session.createQuery(delete).executeUpdate());
+  }
+
+  public Uni<Void> delete(Post p) {
+    // perform update
+    return this.sessionFactory
+        .openSession()
+        .flatMap(s -> s.withTransaction(t -> s.merge(p).flatMap(s::remove)));
   }
 
   public Uni<Integer> deleteAll() {

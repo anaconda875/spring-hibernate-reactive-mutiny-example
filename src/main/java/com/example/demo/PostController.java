@@ -2,24 +2,40 @@ package com.example.demo;
 
 import static org.springframework.http.ResponseEntity.*;
 
-import lombok.RequiredArgsConstructor;
+import java.util.UUID;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/posts")
-@RequiredArgsConstructor
 class PostController {
 
   private final PostRepository repository;
 
+  PostController(PostRepository repository) {
+    this.repository = repository;
+  }
+
+  @PostMapping
+  @Transactional
+  public Mono<Post> create() {
+    return repository
+        .findById(UUID.fromString("3a892e30-0142-496e-acc4-af76599cd811"))
+        .flatMap(repository::save);
+    //    return repository.save(Post.builder().content("trans").title("trans").build());
+  }
+
   @GetMapping
+  //  @Transactional
   public Flux<Post> findAllByContent(String content, Pageable pageable) {
     return repository.findByContent(content, pageable);
   }
 
   @GetMapping("/all")
+  @Transactional
   public Flux<Post> findAllPageable(Pageable pageable) {
     return repository.findAll(pageable);
   }
