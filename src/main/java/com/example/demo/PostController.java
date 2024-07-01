@@ -1,12 +1,9 @@
 package com.example.demo;
 
-import static org.springframework.http.ResponseEntity.*;
-
-import java.util.UUID;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -21,23 +18,25 @@ class PostController {
 
   @PostMapping
   @Transactional
-  public Mono<Post> create() {
-    return repository
-        .findById(UUID.fromString("3a892e30-0142-496e-acc4-af76599cd811"))
-        .flatMap(repository::save);
-    //    return repository.save(Post.builder().content("trans").title("trans").build());
+  public Mono<Post> create(String title) {
+    return repository.testSpel3(title);
+    //    return repository
+    //        .findById(UUID.fromString("3a892e30-0142-496e-acc4-af76599cd811"))
+    //        .flatMap(repository::save);
+    //        return repository.save(Post.builder().content("au1").title("au1").build());
   }
 
   @GetMapping
   //  @Transactional
-  public Flux<Post> findAllByContent(String content, Pageable pageable) {
-    return repository.findByContent(content, pageable);
+  public Mono<Page<Post>> findAllByContent(String content, Pageable pageable) {
+    return repository.findByContentCustomPage(content, pageable);
   }
 
   @GetMapping("/all")
   @Transactional
-  public Flux<Post> findAllPageable(Pageable pageable) {
-    return repository.findAll(pageable);
+  public Mono<Page<Post>> findAllPageable(Pageable pageable) {
+    return null;
+    //    return repository.findAll(pageable);
   }
 
   /*private final PostRepository1 posts;

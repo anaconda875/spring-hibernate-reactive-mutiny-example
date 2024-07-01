@@ -19,9 +19,17 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Builder
 @Entity
 @Table(name = "posts")
-/*@NamedQueries(
-    value = {@NamedQuery(name = "Post.testNamedQuery", query = "SELECT p FROM Post p WHERE p.content = ?1")}
-)*/
+@NamedQueries(
+    value = {
+      @NamedQuery(
+          name = "Post.testNamed",
+          query = "SELECT p FROM Post p WHERE p.content = :content")
+    })
+@NamedEntityGraphs({
+  @NamedEntityGraph(
+      name = "Post.testNamed",
+      attributeNodes = {@NamedAttributeNode("title")})
+})
 public class Post {
 
   @Id

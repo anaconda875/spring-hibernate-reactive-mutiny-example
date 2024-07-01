@@ -34,6 +34,14 @@
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-data</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-pg-client</artifactId>
             <version>${vertx-pg-client.version}</version>
@@ -46,12 +54,12 @@
             <optional>true</optional>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-jpamodelgen -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
-            <version>${hibernate.version}</version>
-            <optional>true</optional>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.hibernate</groupId>-->
+<!--            <artifactId>hibernate-jpamodelgen</artifactId>-->
+<!--            <version>${hibernate.version}</version>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -60,7 +68,7 @@
         <dependency>
             <groupId>io.github.anaconda875</groupId>
             <artifactId>reactive-hibernate-spring-boot-starter</artifactId>
-            <version>1.0.4</version>
+            <version>1.1.0</version>
         </dependency>
 
         <dependency>
