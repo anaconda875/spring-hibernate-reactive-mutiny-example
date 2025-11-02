@@ -37,11 +37,11 @@ public class Post {
   @GenericGenerator(name = "uuid", strategy = "uuid2")
   UUID id;
 
+  @Column(nullable = false)
   String title;
   String content;
 
   @Column(name = "created_at")
-  //  @CreationTimestamp
   @CreatedDate
   LocalDateTime createdAt;
 

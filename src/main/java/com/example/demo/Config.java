@@ -40,7 +40,6 @@ public class Config {
 
   @Bean
   ReactiveAuditorAware<String> reactiveAuditorAware() {
-    //    return AuthorityContextHolder::get;
     return () ->
         ReactiveSecurityContextHolder.getContext()
             .map(SecurityContext::getAuthentication)

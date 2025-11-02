@@ -11,8 +11,9 @@
 // import java.util.logging.Logger;
 // import lombok.RequiredArgsConstructor;
 // import org.hibernate.reactive.mutiny.Mutiny;
+// import reactor.core.publisher.Flux;
 //
-//// @Component
+// // @Component
 // @RequiredArgsConstructor
 // public class PostRepository1 {
 //  private static final Logger LOGGER = Logger.getLogger(PostRepository1.class.getName());
@@ -122,5 +123,14 @@
 //    // perform update
 //    return this.sessionFactory.withTransaction(
 //        (session, tx) -> session.createQuery(delete).executeUpdate());
+//  }
+//
+//  public Flux<Post> implementNamedQuery(String content) {
+//    return this.sessionFactory.withSession(s -> {
+//      Mutiny.SelectionQuery<Post> namedQuery = s.createNamedQuery("Post.testNamed", Post.class);
+//      namedQuery.setParameter("content", content);
+//
+//      return namedQuery.getResultList();
+//    });
 //  }
 // }

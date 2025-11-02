@@ -1,25 +1,48 @@
 package com.example.demo;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/posts")
 class PostController {
 
+  private final ARepo aRepo;
+  private final BRepo bRepo;
   private final PostRepository repository;
+  private final Sv sv;
 
-  PostController(PostRepository repository) {
-    this.repository = repository;
+  PostController(ARepo aRepo, BRepo bRepo, PostRepository repository, Sv sv) {
+		this.aRepo = aRepo;
+		this.bRepo = bRepo;
+		this.repository = repository;
+    this.sv = sv;
+  }
+
+  @PutMapping
+  @Transactional
+  Flux<B> a() {
+//    A a = new A();
+//    B b = new B();
+//    return aRepo.save( a ).flatMap( saved -> {
+//      b.setA( saved );
+//      return bRepo.save( b );
+//    } ).then();
+
+    return aRepo.findAll().concatMap( l -> Flux.fromIterable( l.getBs() ) );
   }
 
   @PostMapping
   @Transactional
-  public Mono<Post> create(String title) {
-    return repository.testSpel3(title);
+  public Flux<Post> create(String title) {
+//    return repository.findByContentOrderByCreatedAtDesc( "content" );
+    return Flux.concat(sv.test(title), (repository.testSpel3(title)));
     //    return repository
     //        .findById(UUID.fromString("3a892e30-0142-496e-acc4-af76599cd811"))
     //        .flatMap(repository::save);
